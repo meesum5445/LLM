@@ -2,16 +2,15 @@
 #define Layer_h
 //........................
 #include<vector>
-#include"ActivationFunctions/ActivationFunction.h"
+#include"../NetworkUnit.h"
 //........................
 template<typename T>
-class Layer
+class Layer : private NetworkUnit<T>
 {
     private:
         //structure 
         std::vector<std::vector<T>>weights;
         std::vector<T>biases;
-        T (*activationFunction)(T);
         //functional
         float learningRate;
     public:
@@ -20,7 +19,6 @@ class Layer
             this->weights.resize(perceptronsCount, std::vector<T>(inputs));
             this->biases.resize(perceptronsCount);
             this->learningRate=learningRate;
-            this->activationFunction=ActivationFunction<T>::getActivationFunction("sigmoid");
         }
         std::vector<T> forwardPropagate(std::vector<T> inputs)
         {
@@ -36,15 +34,15 @@ class Layer
             }
             return outputs;
         }
-        void backwardPropagate(std::vector<std::vector<T>>weightsGradient,std::vector<T>biasesGradient)
+        void backwardPropagate(std::vector<vector<T>> weightsGradient,std::vector<T> biasesGradient)
         {
             for(uint_t i=0;i<weights.size();i++)
             {
                 for(uint_t j=0;j<weights[i].size();j++)
                 {
-                    weights[i][j]-=weightsGradient[i][j]*learningRate;
+                    weights[i][j]-=learningRate*weightsGradient[i][j];
                 }
-                biases[i]-=biasesGradient[i]*learningRate;
+                biases[i]-=learningRate*biasesGradient[i];
             }
         }
 };
