@@ -1,6 +1,6 @@
 #ifndef SIGMOID_H
 #define SIGMOID_H
-
+//.....BUILT-IN LIBRARIES.....
 #include <cmath>
 
 template<typename T>

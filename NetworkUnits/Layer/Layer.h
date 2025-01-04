@@ -1,9 +1,9 @@
 #ifndef Layer_h
 #define Layer_h
-//........................
+//.....BUILT-IN LIBRARIES.....
 #include<vector>
+//.....CUSTOM LIBRARIES.....
 #include"../NetworkUnit.h"
-//........................
 template<typename T>
 class Layer : private NetworkUnit<T>
 {
@@ -46,5 +46,4 @@ class Layer : private NetworkUnit<T>
             }
         }
 };
-//........................
 #endif

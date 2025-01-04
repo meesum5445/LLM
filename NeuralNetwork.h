@@ -1,7 +1,8 @@
 #ifndef NEURALNETWORK_H
 #define NEURALNETWORK_H
-
+//.....BUILT-IN LIBRARIES.....
 #include <vector>
+//.....CUSTOM LIBRARIES.....
 #include "NetworkUnits/NetworkUnit.h"
 template<typename T>
 class NeuralNetwork {
@@ -18,4 +19,4 @@ class NeuralNetwork {
         }
 };
 
-#endif // NEURALNETWORK_H
+#endif

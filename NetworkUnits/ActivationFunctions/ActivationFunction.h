@@ -1,7 +1,8 @@
 #ifndef ACTIVATIONFUNCTION_H
 #define ACTIVATIONFUNCTION_H
-//.............................
+//.....BUILT-IN LIBRARIES.....
 #include <string>
+//.....CUSTOM LIBRARIES.....
 #include "../NetworkUnit.h"
 #include "Sigmoid.h"
 
@@ -28,6 +29,5 @@ class ActivationFunction : private NetworkUnit<T>
             return derivative(x);
         }
 };
-//.............................
 #endif
 
