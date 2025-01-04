@@ -9,8 +9,9 @@
 template<typename T>
 class ActivationFunction : private NetworkUnit<T>
 {
-    T (*function)(T);
-    T (*derivative)(T);
+    private:
+        vector<T> (*function)(vector<T>);
+        vector<T> (*derivative)(vector<T>);
     public:
         ActivationFunction(std::string name)
         {
@@ -20,11 +21,11 @@ class ActivationFunction : private NetworkUnit<T>
                 this->derivative=Sigmoid<T>::derivative;
             }
         }
-        T forwardPropagate(T x)
+        T forwardPropagate(vector<T> x)
         {
             return function(x);
         }
-        T backwardPropagate(T x)
+        T backwardPropagate(vector<T> x)
         {
             return derivative(x);
         }

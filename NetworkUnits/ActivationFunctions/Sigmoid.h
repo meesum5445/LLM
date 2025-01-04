@@ -6,11 +6,19 @@
 template<typename T>
 class Sigmoid {
 public:
-    static T function(T x) {
-        return 1.0 / (1.0 + std::exp(-x));
+    static vector<T> function(vector<T> x) {
+        vector<T> result(x.size());
+        for (uint_t i = 0; i < x.size(); i++) {
+            result[i] = 1.0 / (1.0 + exp(-x[i]));
+        }
+        return result;
     }
-    static T derivative(T x) {
-        return x * (1.0 - x);
+    static vector<T> derivative(vector<T> x) {
+        vector<T> result(x.size());
+        for (uint_t i = 0; i < x.size(); i++) {
+            result[i] = x[i] * (1.0 - x[i]);
+        }
+        return result;
     }
 };
 
