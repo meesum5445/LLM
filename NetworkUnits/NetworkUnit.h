@@ -1,9 +1,12 @@
 #ifndef NetworkUnit_h
 #define NetworkUnit_h
+//.....BUILT-IN LIBRARIES.....
+#include <vector>
+
+template<typename T>
 class NetworkUnit
 {
     public:
-        virtual void forwardPropagate()=0;
-        virtual void backwardPropagate()=0;
+        virtual std::vector<T> forwardPropagate(std::vector<T> inputs)=0;
 };
 #endif
