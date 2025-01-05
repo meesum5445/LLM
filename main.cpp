@@ -6,6 +6,7 @@ int main() {
     nn.addLayer(2, 2, 0.1);
     nn.addActivationFunction("sigmoid");
     nn.addLayer(2, 1, 0.1);
+    nn.addActivationFunction("sigmoid");
     nn.setLossFunction("l2");
     std::vector<std::vector<float>> inputs = {
         {0.0, 0.0},

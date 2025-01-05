@@ -3,6 +3,7 @@
 //.....BUILT-IN LIBRARIES.....
 #include<vector>
 //.....CUSTOM LIBRARIES.....
+#include"../../utils/vector.h"
 #include"../NetworkUnit.h"
 template<typename T>
 class Layer : public NetworkUnit<T>
@@ -17,8 +18,8 @@ class Layer : public NetworkUnit<T>
 
         Layer(size_t inputs,size_t perceptronsCount,float learningRate)
         {
-            this->weights.resize(perceptronsCount, std::vector<T>(inputs));
-            this->biases.resize(perceptronsCount);
+            this->weights=generateRandomMatrix<T>(perceptronsCount,inputs);
+            this->biases=generateRandomVector<T>(perceptronsCount);
             this->learningRate=learningRate;
         }
         std::vector<T> forwardPropagate(std::vector<T> inputs)
