@@ -10,20 +10,25 @@
 template<typename T>
 class  Sigmoid : public NetworkUnit<T>
 {
-    private:
-        std::vector<T> outputs;
+    T sigmoid(T x)
+    {
+        return 1.0 / (1.0 + exp(-x));
+    }
     public:
-        std::vector<T> forwardPropagate(std::vector<T> x) {
+        std::vector<T> forwardPropagate(std::vector<T> x) override
+        {
+            this->inputs = x;
             std::vector<T> result(x.size());
             for (size_t i = 0; i < x.size(); i++) {
-                result[i] = 1.0 / (1.0 + exp(-x[i]));
+                result[i] = sigmoid(x[i]);
             }
             return result;
         }
-        std::vector<T> backwardPropagate(std::vector<T> x) {
-            std::vector<T> result(x.size());
-            for (size_t i = 0; i < x.size(); i++) {
-                result[i] = x[i] * (1.0 - x[i]);
+        std::vector<T> backwardPropagate(std::vector<T> gradient) override
+        {
+            std::vector<T> result(gradient.size());
+            for (size_t i = 0; i < gradient.size(); i++) {
+                result[i] = gradient[i] * (1 - sigmoid(this->inputs[i])) * sigmoid(this->inputs[i]);
             }
             return result;
         }

@@ -15,7 +15,7 @@ public:
     // Method to calculate loss
     virtual std::vector<T> calculateLoss(const std::vector<T>& predicted, const std::vector<T>& actual) = 0;
     // Method to calculate derivative of loss
-    virtual std::vector<T> calculateDerivative(const std::vector<T>& predicted, const std::vector<T>& actual) = 0;
+    virtual std::vector<T> calculateGradient(const std::vector<T>& predicted, const std::vector<T>& actual) = 0;
 };
 
 #endif // LOSSFUNCTION_H

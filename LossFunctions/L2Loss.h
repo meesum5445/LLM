@@ -20,12 +20,12 @@ public:
         }
         return this->loss;
     }
-    std::vector<T> calculateDerivative(const std::vector<T>& predicted, const std::vector<T>& actual) override {
-        std::vector<T> derivative;
+    std::vector<T> calculateGradient(const std::vector<T>& predicted, const std::vector<T>& actual) override {
+        std::vector<T> gradient(predicted.size());
         for (size_t i = 0; i < predicted.size(); i++) {
-            derivative.push_back(2 * (predicted[i] - actual[i]));
+            gradient[i] = 2 * (predicted[i] - actual[i]);
         }
-        return derivative;
+        return gradient;
     }
 };
 

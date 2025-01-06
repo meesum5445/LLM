@@ -26,13 +26,13 @@ class NeuralNetwork {
             }
             return inputs;
         }
-        // void backwardPropagate(std::vector<T> error)
-        // {
-        //     for(size_t i=networkUnits.size()-1;i>=0;i--)
-        //     {
-        //         error=networkUnits[i]->backwardPropagate(error);
-        //     }
-        // }
+        void backwardPropagate(std::vector<T> gradient)
+        {
+            for(int i=networkUnits.size()-1;i>=0;i--)
+            {
+                gradient=networkUnits[i]->backwardPropagate(gradient);
+            }
+        }
     public:
         // Structure Functions
         NeuralNetwork()
@@ -65,8 +65,8 @@ class NeuralNetwork {
                 for(size_t j=0;j<inputs.size();j++)
                 {
                     std::vector<T> result=forwardPropagate(inputs[j]);
-                    std::vector<T> error=this->lossFunction->calculateLoss(result,outputs[j]);
-                    // backwardPropagate(error);
+                    std::vector<T> gradient=this->lossFunction->calculateGradient(result,outputs[j]);
+                    this->backwardPropagate(gradient);
                 }
             }
         }
