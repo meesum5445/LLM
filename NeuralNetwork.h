@@ -9,7 +9,8 @@
 #include "NetworkUnits/Layer/Layer.h"
 #include "NetworkUnits/ActivationFunctions/Sigmoid.h"
 #include "LossFunctions/LossFunction.h"
-#include "LossFunctions/L2Loss.h"
+#include "LossFunctions/L2.h"
+#include "LossFunctions/CrossEntropy.h"
 
 template<typename T>
 class NeuralNetwork {
@@ -67,6 +68,8 @@ class NeuralNetwork {
         {
             if(name=="l2")
                 this->lossFunction = new L2Loss<T>();
+            else if(name=="crossentropy")
+                this->lossFunction = new CrossEntropy<T>();
             else
                 throw std::invalid_argument("Loss Function Not Found");
         }
