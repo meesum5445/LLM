@@ -17,6 +17,8 @@ class NeuralNetwork {
         // Structure Variables
         std::vector<NetworkUnit<T>*> networkUnits;
         LossFunction<T>* lossFunction;
+        T learningRate;
+        size_t inputSize;
         // Functional Functions
         std::vector<T> forwardPropagate(std::vector<T> inputs)
         {
@@ -35,18 +37,29 @@ class NeuralNetwork {
         }
     public:
         // Structure Functions
-        NeuralNetwork()
+        NeuralNetwork(){}
+        void setLearningRate(T learningRate)
         {
-            networkUnits=std::vector<NetworkUnit<T>*>();
+            this->learningRate=learningRate;
         }
-        void addLayer(size_t inputs,size_t perceptronsCount,float learningRate)
+        void setInputSize(size_t inputs)
         {
-            networkUnits.push_back(new Layer<T>(inputs,perceptronsCount,learningRate));
+            this->inputSize=inputs;
+        }
+        void addLayer(size_t perceptronsCount)
+        {
+            if(networkUnits.size()==0)
+                networkUnits.push_back(new Layer<T>(this->inputSize,perceptronsCount,this->learningRate));
+            else
+            {
+                networkUnits.push_back(new Layer<T>(networkUnits.back()->getOutputSize(),perceptronsCount,this->learningRate));
+            }
+
         }
         void addActivationFunction(std::string name)
         {
             if(name=="sigmoid")
-                networkUnits.push_back(new Sigmoid<T>());
+                networkUnits.push_back(new Sigmoid<T>(networkUnits.back()->getOutputSize()));
             else
                 throw std::invalid_argument("Activation Function Not Found");
         }
@@ -60,15 +73,23 @@ class NeuralNetwork {
         // Functional Functions
         void train(std::vector<std::vector<T>> inputs,std::vector<std::vector<T>> outputs,size_t epochs)
         {
+            T initialLoss=0;
+            T finalLoss=0;
             for(size_t i=0;i<epochs;i++)
             {
                 for(size_t j=0;j<inputs.size();j++)
                 {
                     std::vector<T> result=forwardPropagate(inputs[j]);
+                    if(i==0)
+                        initialLoss=this->lossFunction->calculateLoss(result,outputs[j])[0];
+                    if(i==epochs-1)
+                        finalLoss=this->lossFunction->calculateLoss(result,outputs[j])[0];
                     std::vector<T> gradient=this->lossFunction->calculateGradient(result,outputs[j]);
                     this->backwardPropagate(gradient);
                 }
             }
+            std::cout<<"Initial Loss: "<<initialLoss<<std::endl;
+            std::cout<<"Final Loss: "<<finalLoss<<std::endl;
         }
         std::vector<T> infer(std::vector<T> inputs)
         {

@@ -65,5 +65,9 @@ class Layer : public NetworkUnit<T>
             }
             return updatedGradients;
         }
+        size_t getOutputSize() override
+        {
+            return weights.size();
+        }
 };
 #endif

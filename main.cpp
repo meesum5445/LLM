@@ -3,12 +3,14 @@
 
 int main() {
     NeuralNetwork<float> nn;
-    nn.addLayer(2, 2, 0.1);
-    nn.addActivationFunction("sigmoid");
-    nn.addLayer(2, 1, 0.1);
-    nn.addActivationFunction("sigmoid");
-
+    nn.setLearningRate(0.1);
+    nn.setInputSize(2);
     nn.setLossFunction("l2");
+    //.....................
+    nn.addLayer(2);
+    nn.addActivationFunction("sigmoid");
+    nn.addLayer(1);
+    nn.addActivationFunction("sigmoid");
     std::vector<std::vector<float>> inputs = {
         {0.0, 0.0},
         {0.0, 1.0},
@@ -17,13 +19,13 @@ int main() {
     };
 
     std::vector<std::vector<float>> outputs = {
+        {1.0},
         {0.0},
-        {1.0},
-        {1.0},
-        {0.0}
+        {0.0},
+        {1.0}
     };
 
-    nn.train(inputs, outputs, 10000);
+    nn.train(inputs, outputs, 100000);
     
     // Test the model
     for (size_t i = 0; i < inputs.size(); i++) {
