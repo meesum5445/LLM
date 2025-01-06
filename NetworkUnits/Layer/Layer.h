@@ -12,6 +12,7 @@ class Layer : public NetworkUnit<T>
         //structure 
         std::vector<std::vector<T>>weights;
         std::vector<T>biases;
+        std::vector<T>outputs;
         //functional
         float learningRate;
     public:
@@ -34,7 +35,7 @@ class Layer : public NetworkUnit<T>
                 }
                 outputs[i]=sum+biases[i];
             }
-            return outputs;
+            return this->outputs=outputs;
         }
 };
 #endif
